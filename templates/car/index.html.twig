@@ -29,7 +29,8 @@
         <button type="button" class="btn btn-secondary">All</button>
       </div>
 
-      // retrouver la valeur cliqué (avec JS ?) et la retourner dans la table
+      {# retrouver la valeur cliqué (avec JS ?) et la retourner dans la table #}
+
       <table class="table">
         <thead>
           <tr>
@@ -55,6 +56,10 @@
         </tbody>
       </table>
 
+
+      <div class="pagination justify-content-center ">
+        {{ knp_pagination_render(cars, 'base/pagination.html.twig') }}
+      </div>
 
 </div>
 
