@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+    {# {{ form_widget(form) }} #}
+    {{ form_row(form.name) }}
+    {{ form_row(form.nbSeats) }}
+    {{ form_row(form.nbDoors) }}
+    {{ form_row(form.cost) }}
+    {{ form_row(form.carCategory) }}
+
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
