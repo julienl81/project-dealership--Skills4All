@@ -6,43 +6,49 @@
 {% block body %}
 
 	<h2>Results of your search</h2>
-	
+
 	<div class="container mt-4">
 		<div class="row">
 
 			<div class="col-9">
-				<table class="table">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Name</th>
-							<th scope="col">Nb of seat</th>
-							<th scope="col">Nb of Doors</th>
-							<th scope="col">Cost</th>
-							<th scope="col">Category</th>
-							<th scope="col"></th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for car in cars %}
+				{% if cars is empty %}
+					<div>
+						<p>Your search has return any results</p>
+					</div>
+				{% else %}
+					<table class="table">
+						<thead>
 							<tr>
-								<th scope="row">{{car.id}}</th>
-								<td>{{car.name}}</td>
-								<td>{{car.nbSeats}}</td>
-								<td>{{car.nbDoors}}</td>
-								<td>{{car.cost}}</td>
-								<td>{{car.carCategory.name}}</td>
-								<td>
-									<a class="btn btn-warning float-end" href="{{ path('app_admin_car_edit', {'id': car.id}) }}">edit</a>
-								</td>
+								<th scope="col">#</th>
+								<th scope="col">Name</th>
+								<th scope="col">Nb of seat</th>
+								<th scope="col">Nb of Doors</th>
+								<th scope="col">Cost</th>
+								<th scope="col">Category</th>
+								<th scope="col"></th>
 							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							{% for car in cars %}
+								<tr>
+									<th scope="row">{{car.id}}</th>
+									<td>{{car.name}}</td>
+									<td>{{car.nbSeats}}</td>
+									<td>{{car.nbDoors}}</td>
+									<td>{{car.cost}}</td>
+									<td>{{car.carCategory.name}}</td>
+									<td>
+										<a class="btn btn-warning float-end" href="{{ path('app_admin_car_edit', {'id': car.id}) }}">edit</a>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				{% endif %}
 			</div>
 
 			{{ include('car/_sidebar.html.twig') }}
-
+			
 		</div>
 	</div>
 {% endblock %}
