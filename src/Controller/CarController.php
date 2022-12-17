@@ -13,18 +13,31 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CarController extends AbstractController
 {
-    #[Route('/car/{carCategory}', name: 'app_car_category')]
-    public function carList($carCategory, CarRepository $carRepository, CarCategoryRepository $carCategorieRepository, PaginatorInterface $paginator, Request $request): Response
+    #[Route('/', name: 'app_car_list')]
+    public function carList(CarRepository $carRepository, CarCategoryRepository $carCategorieRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        //dd($request->query->get('search'));
+        $cars = $carRepository->findAll();
 
-        if ($carCategory != 'all') {
-            $carCategoryId = $carCategorieRepository->findOneBy(['name' => $carCategory]);
-            $cars = $carRepository->findByCarCategory($carCategoryId);
-        } else {
-            $cars = $carRepository->findAll();
-        }
-        
+        $pagination = $paginator->paginate(
+            $cars,
+            $request->query->getInt('page', 1),
+            20
+        );
+
+        return $this->render('car/index.html.twig', [
+            'cars' => $pagination,
+            'carCategories' => $carCategorieRepository->findAll(),
+            'weather' => WeatherApi::getWeather(),
+        ]);
+    }
+
+    #[Route('/{carCategory}', name: 'app_car_category')]
+    public function carCategory($carCategory, CarRepository $carRepository, CarCategoryRepository $carCategorieRepository, PaginatorInterface $paginator, Request $request): Response
+    {
+        $carCategoryId = $carCategorieRepository->findOneBy(['name' => $carCategory]);
+        $cars = $carRepository->findByCarCategory($carCategoryId);
+
+
         $pagination = $paginator->paginate(
             $cars,
             $request->query->getInt('page', 1),

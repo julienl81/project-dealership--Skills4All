@@ -1,0 +1,29 @@
+
+{% block sidebar %}
+
+	<div class="col-3">
+		<div class="card">
+			<div class="card-header">
+				Categories
+			</div>
+			<ul class="list-group list-group-flush">
+				{% for carCategory in carCategories %}
+					<a class="list-group-item" href="{{ path ('app_car_category', {'carCategory': carCategory.name}) }}">{{carCategory.name}}</a>
+				{% endfor %}
+				<a class="list-group-item" href="{{ path ('app_car_list') }}">-> back to all cars</a>
+			</ul>
+		</div>
+
+		<div class="card mt-4">
+			<div class="card-header">
+				Meteo
+			</div>
+			<div class="card-body">
+				<p class="card-text">Curent temperature is :<br><strong>{{ weather.current_weather.temperature }}°C</p>
+				</p>
+			</div>
+		</div>
+
+	</div>
+	
+{% endblock %}

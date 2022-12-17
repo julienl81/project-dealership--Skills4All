@@ -5,56 +5,44 @@
 
 {% block body %}
 
-	<div class="container w-75 mx-auto">
-		<h1>Search page</h1>
+	<h2>Results of your search</h2>
+	
+	<div class="container mt-4">
+		<div class="row">
 
-		<form class="d-flex" action="{{ path ('app_car_search') }}">
-			<input class="form-control form-control-sm me-2" name="search" type="search" placeholder="Search a car...">
-			<button class="btn btn-outline-danger" type="submit">
-				<i class="bi bi-search"></i>
-			</button>
-		</form>
-    
+			<div class="col-9">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Name</th>
+							<th scope="col">Nb of seat</th>
+							<th scope="col">Nb of Doors</th>
+							<th scope="col">Cost</th>
+							<th scope="col">Category</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for car in cars %}
+							<tr>
+								<th scope="row">{{car.id}}</th>
+								<td>{{car.name}}</td>
+								<td>{{car.nbSeats}}</td>
+								<td>{{car.nbDoors}}</td>
+								<td>{{car.cost}}</td>
+								<td>{{car.carCategory.name}}</td>
+								<td>
+									<a class="btn btn-warning float-end" href="{{ path('app_admin_car_edit', {'id': car.id}) }}">edit</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 
-		{# <div>
+			{{ include('car/_sidebar.html.twig') }}
 
-
-			{% for carCategory in carCategories %}
-				<a class="btn btn-secondary" href="{{ path ('app_car_category', {'carCategory': carCategory.name}) }}">{{carCategory.name}}</a>
-			{% endfor %}
-			<a class="btn btn-warning float-end ms-4" href="{{ path ('app_car_category', {'carCategory': 'all' }) }}">Show All</a>
-		</div> #}
-
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">Name</th>
-					<th scope="col">Nb of seat</th>
-					<th scope="col">Nb of Doors</th>
-					<th scope="col">Cost</th>
-					<th scope="col">Category</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for car in cars %}
-					<tr>
-						<th scope="row">{{car.id}}</th>
-						<td>{{car.name}}</td>
-						<td>{{car.nbSeats}}</td>
-						<td>{{car.nbDoors}}</td>
-						<td>{{car.cost}}</td>
-						<td>{{car.carCategory.name}}</td>
-                              <td>
-                    <a class="btn btn-warning float-end" href="{{ path('app_admin_car_edit', {'id': car.id}) }}">edit</a>
-                </td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-
-        <a href="{{ path ('app_home') }}" class="btn btn-primary">Back to home</a>
-
+		</div>
 	</div>
-
 {% endblock %}
