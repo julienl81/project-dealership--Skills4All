@@ -11,25 +11,12 @@
 <div class="container">
    <h1>Car list</h1>
 
-      {# <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown button
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </div> #}
-
       <div class="btn-group" role="group" aria-label="Basic example">
       {% for carCategory in carCategories %}
-        <button type="button" class="btn btn-secondary">{{carCategory.name}}</button>
+        <a class="btn btn-secondary" href="{{ path('app_car_category', {'carCategory': carCategory.name}) }}">{{carCategory.name}}</a>
       {% endfor %}
         <button type="button" class="btn btn-secondary">All</button>
       </div>
-
-      {# retrouver la valeur cliqué (avec JS ?) et la retourner dans la table #}
 
       <table class="table">
         <thead>

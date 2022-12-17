@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CarCategoryController!{% endblock %}
+{% block title %}Hello CarController!{% endblock %}
 
 {% block body %}
 <style>
@@ -8,13 +8,46 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="container">
+   <h1>Car list</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/projets-perso/project-dealership--Skills4All/src/Controller/CarCategoryController.php'|file_link(0) }}">src/Controller/CarCategoryController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/projets-perso/project-dealership--Skills4All/templates/car_category/index.html.twig'|file_link(0) }}">templates/car_category/index.html.twig</a></code></li>
-    </ul>
+      <div class="btn-group" role="group" aria-label="Basic example">
+      {% for carCategory in carCategories %}
+        <a type="button" class="btn btn-secondary" href="{{ path ('app_car_category', {'carCategory': carCategory.name}) }}">{{carCategory.name}}</a>
+      {% endfor %}
+        <a class="btn btn-secondary" href="{{ path ('app_car') }}">All</a>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Nb of seat</th>
+            <th scope="col">Nb of Doors</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for car in cars %}
+            <tr>
+              <th scope="row">{{car.id}}</th>
+              <td>{{car.name}}</td>
+              <td>{{car.nbSeats}}</td>
+              <td>{{car.nbDoors}}</td>
+              <td>{{car.cost}}</td>
+              <td>{{car.carCategory.name}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+      <div class="pagination justify-content-center ">
+        {{ knp_pagination_render(cars, 'base/pagination.html.twig') }}
+      </div>
+
 </div>
+
 {% endblock %}

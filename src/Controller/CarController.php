@@ -12,8 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CarController extends AbstractController
 {
-    #[Route('/car', name: 'app_car')]
-    public function index(CarRepository $carRepository, CarCategoryRepository $carCategorie, PaginatorInterface $paginator, Request $request): Response
+    #[Route('/', name: 'app_car')]
+    public function index(CarRepository $carRepository, CarCategoryRepository $carCategorieRepository, PaginatorInterface $paginator, Request $request): Response
     {
 
         $cars = $carRepository->findAll();
@@ -25,7 +25,28 @@ class CarController extends AbstractController
 
         return $this->render('car/index.html.twig', [
             'cars' => $pagination,
-            'carCategories' => $carCategorie->findAll(),
+            'carCategories' => $carCategorieRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/car/{carCategory}', name: 'app_car_category')]
+    public function carCategory($carCategory, CarRepository $carRepository, CarCategoryRepository $carCategorieRepository, PaginatorInterface $paginator, Request $request): Response
+    {
+        $carCategoryId = $carCategorieRepository->findOneBy(['name' => $carCategory]);
+        //dump($carCategoryId);
+
+        $cars = $carRepository->findByCarCategory($carCategoryId);
+        $pagination = $paginator->paginate(
+            $cars,
+            $request->query->getInt('page', 1),
+            20
+        );
+
+        //dd($carRepository->findByCarCategory($carCategoryId));
+
+        return $this->render('car_category/index.html.twig', [
+            'cars' => $pagination,
+            'carCategories' => $carCategorieRepository->findAll(),
         ]);
     }
 }
