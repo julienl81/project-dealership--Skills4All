@@ -9,8 +9,6 @@
   {{ dump(carSearched) }}
 </pre> #}
 
-
-	<div class="container w-75 mx-auto">
 		<h1>Car list</h1>
 
 		<form class="d-flex" action="{{ path ('app_car_search') }}">
@@ -59,6 +57,6 @@
 			{{ knp_pagination_render(cars, 'base/pagination.html.twig') }}
 		</div>
 
-	</div>
+
 
 {% endblock %}
