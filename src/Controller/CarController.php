@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Models\WeatherApi;
 use App\Repository\CarCategoryRepository;
 use App\Repository\CarRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -33,6 +34,7 @@ class CarController extends AbstractController
         return $this->render('car/index.html.twig', [
             'cars' => $pagination,
             'carCategories' => $carCategorieRepository->findAll(),
+            'weather' => WeatherApi::getWeather(),
         ]);
     }
 
@@ -46,7 +48,8 @@ class CarController extends AbstractController
 
         return $this->render('car/search.html.twig', [
             'cars' => $carSearch,
-            'carCategories' => $carCategorieRepository->findAll()
+            'carCategories' => $carCategorieRepository->findAll(),
+            'weather' => WeatherApi::getWeather(),
         ]);
     }
 }

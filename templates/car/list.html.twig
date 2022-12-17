@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CarController!
+{% endblock %}
+
+{% block body %}
+
+	<h1>Car list</h1>
+
+
+	{# <form class="d-flex" action="{{ path ('app_car_search') }}">
+					<input class="form-control form-control-sm me-2" name="search" type="search" placeholder="Search a car...">
+					<button class="btn btn-outline-danger" type="submit">
+						<i class="bi bi-search"></i>
+					</button>
+				</form> #}
+
+	<div>
+		{% for carCategory in carCategories %}
+			<a class="btn btn-secondary" href="{{ path ('app_car_category', {'carCategory': carCategory.name}) }}">{{carCategory.name}}</a>
+		{% endfor %}
+		<a class="btn btn-warning float-end ms-4" href="{{ path ('app_car_category', {'carCategory': 'all' }) }}">Show All</a>
+	</div>
+
+	<div class="container">
+		<div class="row">
+
+			<div class="col-3">
+				ezrfezrf
+			</div>
+
+			<div class="col-6">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Name</th>
+							<th scope="col">Nb of seat</th>
+							<th scope="col">Nb of Doors</th>
+							<th scope="col">Cost</th>
+							<th scope="col">Category</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for car in cars %}
+							<tr>
+								<th scope="row">{{car.id}}</th>
+								<td>{{car.name}}</td>
+								<td>{{car.nbSeats}}</td>
+								<td>{{car.nbDoors}}</td>
+								<td>{{car.cost}}</td>
+								<td>{{car.carCategory.name}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+
+				<div class="pagination justify-content-center ">
+					{{ knp_pagination_render(cars, 'base/pagination.html.twig') }}
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+{% endblock %}

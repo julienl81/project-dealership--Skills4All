@@ -35,24 +35,28 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{ path ('app_car_category', {'carCategory': 'all' }) }}">Car list</a>
 						</li>
+                        
 						{# <li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Car categories
-							</a>
-							<ul class="dropdown-menu">
-								<li>
-									<a class="dropdown-item" href="#">Action</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="#">Another action</a>
-								</li>
-								<li><hr class="dropdown-divider"></li>
-								<li>
-									<a class="dropdown-item" href="#">Something else here</a>
-								</li>
-							</ul>
-						</li> #}
+													<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+														Car categories
+													</a>
+													<ul class="dropdown-menu">
+														<li>
+															<a class="dropdown-item" href="#">Action</a>
+														</li>
+														<li>
+															<a class="dropdown-item" href="#">Another action</a>
+														</li>
+														<li><hr class="dropdown-divider"></li>
+														<li>
+															<a class="dropdown-item" href="#">Something else here</a>
+														</li>
+													</ul>
+												</li> #}
 					</ul>
+                    {# <li class="nav-item me-auto navbar-nav">
+							<a class="nav-link" href="{{ path ('app_car_category', {'carCategory': 'all' }) }}">Curent T° <strong>{{ weather.current_weather.temperature }}</strong></a>
+						</li> #}
 					<form class="d-flex" role="search" action="{{ path ('app_car_search') }}">
 						<input class="form-control me-2" type="search" placeholder="Search a car..." aria-label="Search" name="search">
 						<button class="btn btn-outline-success" type="submit">Search</button>
