@@ -15,7 +15,13 @@ class CarController extends AbstractController
     #[Route('/', name: 'app_car')]
     public function home(): Response
     {
-        return $this->render('car/index.html.twig');
+        $apiUri = 'https://api.open-meteo.com/v1/forecast?latitude=48.85&longitude=2.35&current_weather=true&timezone=auto';
+        $apiJson = json_decode(file_get_contents($apiUri));
+        
+        //dd($apiJson);
+        return $this->render('home/index.html.twig', [
+            'weather' => $apiJson,
+        ]);
     }
 
     #[Route('/car/{carCategory}', name: 'app_car_category')]
