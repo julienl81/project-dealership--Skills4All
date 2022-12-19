@@ -16,6 +16,7 @@ class CarController extends AbstractController
     #[Route('/', name: 'app_admin_car_index', methods: ['GET'])]
     public function index(CarRepository $carRepository): Response
     {
+        // Show all cars in admin panel
         return $this->render('admin/car/index.html.twig', [
             'cars' => $carRepository->findAll(),
         ]);
@@ -24,6 +25,7 @@ class CarController extends AbstractController
     #[Route('/new', name: 'app_admin_car_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CarRepository $carRepository): Response
     {
+        // Create a new car in database
         $car = new Car();
         $form = $this->createForm(CarType::class, $car);
         $form->handleRequest($request);
@@ -43,6 +45,7 @@ class CarController extends AbstractController
     #[Route('/{id}', name: 'app_admin_car_show', methods: ['GET'])]
     public function show(Car $car): Response
     {
+        // show details of a car in admin
         return $this->render('admin/car/show.html.twig', [
             'car' => $car,
         ]);
@@ -51,6 +54,7 @@ class CarController extends AbstractController
     #[Route('/{id}/edit', name: 'app_admin_car_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Car $car, CarRepository $carRepository): Response
     {
+        // edit a car in admin
         $form = $this->createForm(CarType::class, $car);
         $form->handleRequest($request);
 
@@ -69,6 +73,7 @@ class CarController extends AbstractController
     #[Route('/{id}', name: 'app_admin_car_delete', methods: ['POST'])]
     public function delete(Request $request, Car $car, CarRepository $carRepository): Response
     {
+        // remove a car from database
         if ($this->isCsrfTokenValid('delete'.$car->getId(), $request->request->get('_token'))) {
             $carRepository->remove($car, true);
         }
